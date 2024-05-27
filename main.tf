@@ -114,7 +114,7 @@ resource "aws_ssm_parameter" "secret" {
   name        = var.ssm_paramstore_path
   description = "The master password for RDS ${var.identifier}"
   type        = "SecureString"
-  key_id      = var.kms_key_id
+  key_id      = var.master_user_secret_kms_key_id
   value       = random_password.master_password.result
   tags        = var.tags
 }
