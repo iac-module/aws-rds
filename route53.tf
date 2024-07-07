@@ -1,5 +1,5 @@
 module "route53_record" {
-  source = "git::https://github.com/terraform-aws-modules/terraform-aws-route53.git//modules/records?ref=fb53f9541723161ff39374add047dd8e60441e10" #v2.11.0
+  source = "git::https://github.com/terraform-aws-modules/terraform-aws-route53.git//modules/records?ref=e3e35482b7d8d430b505c8dba858b95b9a379601" #v3.1.0
 
   count        = var.route_53_record.enabled && var.create ? 1 : 0
   zone_name    = var.route_53_record.zone_name
