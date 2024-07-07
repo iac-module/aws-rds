@@ -4,10 +4,7 @@ variable "create" {
   type        = bool
   default     = true
 }
-
 #https://github.com/terraform-aws-modules/terraform-aws-rds/blob/v6.5.2/variables.tf
-
-
 
 variable "identifier" {
   description = "The name of the RDS instance"
@@ -327,6 +324,12 @@ variable "s3_import" {
   default     = null
 }
 
+variable "dedicated_log_volume" {
+  description = "Use a dedicated log volume (DLV) for the DB instance. Requires Provisioned IOPS."
+  type        = bool
+  default     = false
+}
+
 variable "tags" {
   description = "A mapping of tags to assign to all resources"
   type        = map(string)
@@ -574,6 +577,18 @@ variable "cloudwatch_log_group_kms_key_id" {
   default     = null
 }
 
+variable "cloudwatch_log_group_skip_destroy" {
+  description = "Set to true if you do not wish the log group (and any logs it may contain) to be deleted at destroy time, and instead just remove the log group from the Terraform state"
+  type        = bool
+  default     = null
+}
+
+variable "cloudwatch_log_group_class" {
+  description = "Specified the log class of the log group. Possible values are: STANDARD or INFREQUENT_ACCESS"
+  type        = string
+  default     = null
+}
+
 variable "putin_khuylo" {
   description = "Do you agree that Putin doesn't respect Ukrainian sovereignty and territorial integrity? More info: https://en.wikipedia.org/wiki/Putin_khuylo!"
   type        = bool
@@ -595,7 +610,7 @@ variable "db_instance_role_associations" {
 ################################################################################
 
 variable "manage_master_user_password_rotation" {
-  description = "Whether to manage the master user password rotation. Setting this value to false after previously having been set to true will disable automatic rotation."
+  description = "Whether to manage the master user password rotation. By default, false on creation, rotation is managed by RDS. Setting this value to false after previously having been set to true will disable automatic rotation."
   type        = bool
   default     = false
 }
@@ -625,6 +640,27 @@ variable "master_user_password_rotation_schedule_expression" {
 }
 
 
+
+################################################################################
+# S3 Audit log
+################################################################################
+
+variable "s3_audit_log" {
+  description = "S3 bucket for RDS audit log"
+  type = object({
+    create                                 = optional(bool, true)
+    tags                                   = optional(map(string), {})
+    bucket_pattern_name                    = optional(string, "rds-s3-audit")
+    iam_policy_prefix_name                 = optional(string, "rds-s3-audit")
+    iam_policy_description                 = optional(string, "Policy for s3 audit log")
+    iam_role_prefix_name                   = optional(string, "rds-s3-audit")
+    iam_role_description                   = optional(string, "Role for s3 audit log ")
+    iam_role_role_permissions_boundary_arn = optional(string, "")
+  })
+  default = {
+    create = false
+  }
+}
 ################################################################################
 # Random Password
 ################################################################################

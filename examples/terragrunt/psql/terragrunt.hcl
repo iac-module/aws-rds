@@ -1,12 +1,10 @@
-
-
 include {
   path = find_in_parent_folders()
 }
 iam_role = local.account_vars.iam_role
 
 terraform {
-  source = "git::https://github.com/iac-module/aws-rds.git//?ref=v1.0.1"
+  source = "git::https://github.com/iac-module/aws-rds.git//?ref=v1.0.2"
 }
 
 dependency "vpc" {
@@ -52,7 +50,6 @@ inputs = {
   backup_retention_period = 7
   skip_final_snapshot     = false
   deletion_protection     = false
-
 
   performance_insights_enabled          = true
   performance_insights_retention_period = 7
