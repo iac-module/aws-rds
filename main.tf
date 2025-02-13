@@ -1,5 +1,5 @@
 module "rds" {
-  source                               = "git::https://github.com/terraform-aws-modules/terraform-aws-rds.git?ref=3ba7984d024e035f7b604b1f96726e6bc527e80d" #v6.7.0
+  source                               = "git::https://github.com/terraform-aws-modules/terraform-aws-rds.git?ref=4481ddde97e5408a0f0a91e00472f1ef024223d3" #v6.10.0
   identifier                           = var.identifier
   instance_use_identifier_prefix       = var.instance_use_identifier_prefix
   custom_iam_instance_profile          = var.custom_iam_instance_profile
@@ -20,6 +20,7 @@ module "rds" {
   domain_ou                            = var.domain_ou
   engine                               = var.engine
   engine_version                       = var.engine_version
+  engine_lifecycle_support             = var.engine_lifecycle_support
   skip_final_snapshot                  = var.skip_final_snapshot
   snapshot_identifier                  = var.snapshot_identifier
   copy_tags_to_snapshot                = var.copy_tags_to_snapshot
@@ -69,6 +70,7 @@ module "rds" {
   parameter_group_description          = var.parameter_group_description
   family                               = var.family
   parameters                           = var.parameters
+  parameter_group_skip_destroy         = var.parameter_group_skip_destroy
   create_db_option_group               = var.create_db_option_group
   option_group_name                    = var.option_group_name
   option_group_use_name_prefix         = var.option_group_use_name_prefix
@@ -91,6 +93,7 @@ module "rds" {
     }], var.options
 
   ) : var.options
+  option_group_skip_destroy                              = var.option_group_skip_destroy
   create_db_instance                                     = var.create_db_instance
   timezone                                               = var.timezone
   character_set_name                                     = var.character_set_name
@@ -106,11 +109,13 @@ module "rds" {
   ca_cert_identifier                                     = var.ca_cert_identifier
   delete_automated_backups                               = var.delete_automated_backups
   network_type                                           = var.network_type
+  upgrade_storage_config                                 = var.upgrade_storage_config
   create_cloudwatch_log_group                            = var.create_cloudwatch_log_group
   cloudwatch_log_group_retention_in_days                 = var.cloudwatch_log_group_retention_in_days
   cloudwatch_log_group_kms_key_id                        = var.cloudwatch_log_group_kms_key_id
   cloudwatch_log_group_skip_destroy                      = var.cloudwatch_log_group_skip_destroy
   cloudwatch_log_group_class                             = var.cloudwatch_log_group_class
+  cloudwatch_log_group_tags                              = var.cloudwatch_log_group_tags
   putin_khuylo                                           = var.putin_khuylo
   db_instance_role_associations                          = var.db_instance_role_associations
   manage_master_user_password_rotation                   = var.manage_master_user_password_rotation
