@@ -38,8 +38,8 @@ inputs = {
   publicly_accessible         = true
   maintenance_window          = "Sun:00:00-Sun:03:00"
   backup_window               = "03:00-06:00"
-  username = "${local.account_vars.locals.owner}_${local.account_vars.locals.env}_agent"
-  port     = 1433
+  username                    = "${local.account_vars.locals.owner}_${local.account_vars.locals.env}_agent"
+  port                        = 1433
 
   # DB subnet group
   create_db_subnet_group = true
