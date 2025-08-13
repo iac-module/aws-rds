@@ -5,6 +5,10 @@
 # .tfstate files
 *.tfstate
 *.tfstate.*
+.idea
+.vscode
+.DS_Store
+
 
 # Crash log files
 crash.log

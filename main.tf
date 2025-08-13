@@ -1,5 +1,5 @@
 module "rds" {
-  source                               = "git::https://github.com/terraform-aws-modules/terraform-aws-rds.git?ref=4481ddde97e5408a0f0a91e00472f1ef024223d3" #v6.10.0
+  source                               = "git::https://github.com/terraform-aws-modules/terraform-aws-rds.git?ref=9122d19b2ff1e9114ae328fec988715cdd56bf5f" #v6.12.0
   identifier                           = var.identifier
   instance_use_identifier_prefix       = var.instance_use_identifier_prefix
   custom_iam_instance_profile          = var.custom_iam_instance_profile
@@ -44,6 +44,7 @@ module "rds" {
   monitoring_role_description          = var.monitoring_role_description
   create_monitoring_role               = var.create_monitoring_role
   monitoring_role_permissions_boundary = var.monitoring_role_permissions_boundary
+  database_insights_mode               = var.database_insights_mode
   allow_major_version_upgrade          = var.allow_major_version_upgrade
   auto_minor_version_upgrade           = var.auto_minor_version_upgrade
   apply_immediately                    = var.apply_immediately
